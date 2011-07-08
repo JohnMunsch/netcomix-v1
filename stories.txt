@@ -1,0 +1,68 @@
+As a developer, I want users to be able to log into and out of the site, so I can tell which user is active on a given connection and so they can share machines (including public ones).
+
+As a user, I want to be able to click or use arrows to move forward and backward through a comic so I can read it completely.
+
+As a user, I want a nice interface to jump to any page within a comic so I can move to specific pages I'm interested in reading.
+
+As a developer, I want users to be able to tag comics so we can group them automatically (without needing lists) for many basic attributes like artists, publisher, year of publication, genre, writer, etc.
+
+As a developer, I want myself and users to be able to mark a comic as left to right or right to left so that it will display both American comics and manga correctly.
+
+As a user, I want the system to remember the last page I was reading within any given comic so the next time I return to it I can continue from the same spot (even if on another device).
+
+As a user, when I complete or nearly complete a given comic, I want it marked as read so I know where to start within a series without having to flip through comics I may have already read.
+
+As a developer, I want users to rate comics they've read so other users can benefit from the ratings to know what is good to read and so that the ratings can be used in aggregate to make suggestions of other comics users might like to read based on ones they liked.
+
+As a user, I want to be able to display a page at a variety of sizes (to fit, page width = browser width, full) in order to make the best use of my screen and my ability to read the comic.
+
+As a user, I want to be able to bookmark comics, specific pages within comics, and lists so I can share them with others or use them for quick access.
+
+As a user, I want to be able to use the browser forward and back buttons and move through the site so it will feel completely natural to me even if every action I take doesn't correspond to page requests.
+
+As a user, I want to be able to create a list of comics to provide recommendations, curate collections (for example, keep a list of every comic pencilled by John Byrne), keep chronologies, etc. so that I can keep track of comics for myself and share information with other users to help them find comics to read.
+
+As a user, I want to be able to subscribe to lists (for example, new issues for a specific comic or issues which belong to a specific story line like Crisis on Infinite Earths or Blackest Night) and have them automatically added to a new list of my own, so that I have something equivalent to the pull list (in fact better than a pull list) at a real comics store.
+
+As a user, I want to be able to search for comics, tags, and lists so I can find comics relevant to my interests.
+
+As a user with a large screen, I may want to have pages display in a two up format so I can read them as they appeared originally within the comic or manga.
+
+As a user, I want to be able to bring up a loupe when a comic is not shown at full resolution so I can see details or read text that might otherwise be difficult to read.
+
+As a developer, I want to be able to export a comic and have all of the information available in the system at present (for example, page order, tags, title, volume, issue number, page groupings, etc.) be exported into the file as a JSON file so that more information will travel with comics as they move from system to system.
+
+As a user, I want to be able to subscribe to an RSS feed for a list so I can see when I have new comics waiting for me.
+
+As a user, I want a logo for the site, a favicon.ico, and apple icons so that I will see attractive icons representing the app whether I install it on an iOS device, Android, or use it through a browser.
+
+As a developer, I want to be able to index comics on remote servers as well as those stored locally and make them available to my users so they can read a larger set of comics.
+
+As a developer, I want to give some users the ability to download comics directly in CBZ format so they can use them with offline readers.
+
+As a developer, I may want to give some users the ability to upload comics in CBZ format so they are added directly to the existing collection.
+
+As a developer, I want to be able to add new comics into the system very very easily so I can do as little work as possible to add a large collection.
+
+As a developer, I want to present the user with several different ways of browsing (recent, by tags, curated lists, etc.) so the user can find interesting reading material.
+
+As a developer, I need the HTML5 boilerplate I'm using upgraded to the latest version of jQuery, so that I don't have bugs I'm dealing with and so I don't end up behind on improvements.
+
+As a developer, I would like the user to get the set of thumbnails for a comic as a single image with clipping info so I save as much bandwidth and transfer time as possible.
+
+Comic
+Series
+Issue #
+Hash
+Tags
+
+Ratings
+User
+Comic
+Rating
+
+List
+Comics
+
+User
+Lists
