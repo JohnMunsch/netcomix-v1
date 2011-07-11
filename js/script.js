@@ -78,6 +78,8 @@ Page.prototype.displayPage = function() {
 
     tempImage.name = this.currentComic.page();
     tempImage.onload = function () {
+	  window.scrollTo(0, 0);
+
       // When this function is called, "this" points to something other
       // than the page, that's why I copied it to the page variable above.
       page.resize(tempImage);
