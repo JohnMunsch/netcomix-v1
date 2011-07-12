@@ -30,7 +30,9 @@ dwsync.xml
 .svn
 publish
 .idea
+build
+dist
 
 # build script local files
-build/buildinfo.properties
-build/config/buildinfo.properties
+war/build/buildinfo.properties
+war/build/config/buildinfo.properties
