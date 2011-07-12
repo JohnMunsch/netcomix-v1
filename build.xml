@@ -1,0 +1,59 @@
+<project name="netcomix" basedir="." default="all">
+    <description>netcomix is a web based CBZ comic reader.</description>
+
+    <property name="lib.dir" location="lib"/>
+    <property name="source.dir" location="src"/>
+    <property name="test.dir" location="test"/>
+    <property name="war.dir" location="war"/>
+    
+    <property name="build.dir" location="build"/>
+    <property name="class.dir" location="build/classes"/>
+    <property name="javadocs.dir" location="docs/apidoc"/>
+	<property name="dist.dir" location="dist"/>
+    
+    <target name="init" description="Initialize the build: create directories, call tstamp and other common actions.">
+        <!-- Create the time stamp -->
+        <tstamp/>
+    	
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <target name="debug"> 
+        <echoproperties/>
+    </target>
+	
+    <target name="compile" depends="init">
+        <mkdir dir="${class.dir}"/>
+        <javac srcdir="${source.dir}" destdir="${class.dir}" debug="true" 
+                deprecation="true">
+            <classpath>
+                <fileset dir="${lib.dir}"/>
+            </classpath>
+        </javac>
+    </target>
+
+	<target name="dist" depends="compile" description="Produce the distributables.">
+        <mkdir dir="${dist.dir}"/>
+        <war destfile="${dist.dir}/netcomix.war" webxml="${war.dir}/WEB-INF/web.xml">
+            <fileset dir="${war.dir}"/>
+            <lib dir="${lib.dir}"/>
+            <classes dir="${class.dir}"/>
+        </war>
+    </target>
+
+	<target name="all" depends="dist" description="Build and test everything; create a distribution."/>
+	
+    <target name="javadocs" depends="init" description="Generate the Javadoc pages.">
+    	<mkdir dir="${javadocs.dir}"/>
+        <javadoc packagenames="*" sourcepath="${source.dir}" destdir="${javadocs.dir}"/>
+    </target>
+
+    <target name="clean" depends="init" description="Delete all generated files and directories.">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+	
+	<target name="test" description="Run the unit tests.">
+	</target>
+</project>
