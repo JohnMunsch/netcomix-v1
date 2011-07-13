@@ -4,11 +4,8 @@
 
 <dwr>
   <allow>
-    <create creator="new" javascript="JDate">
-      <param name="class" value="java.util.Date"/>
-    </create>
-    <create creator="new" javascript="Demo">
-      <param name="class" value="your.java.Bean"/>
+    <create creator="new" javascript="netcomixServer">
+      <param name="class" value="com.johnmunsch.netcomix.Bean"/>
     </create>
   </allow>
 </dwr>
