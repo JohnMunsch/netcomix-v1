@@ -2,6 +2,37 @@ Testing out ideas for a CBZ comics reader that would have a nice UI written in
 HTML, CSS, and JavaScript (with a healthy dose of jQuery) and a very simple
 server API.
 
+Here's what it can do today (and it's not much). You can build it with Apache
+Ant, you can deploy the resulting WAR file (dist/netcomix.war) to a Java EE
+server (I used Tomcat), you can visit the web app in your browser and you'll
+see some thumbnail covers.
+
+Click one to start reading a comic. At the moment, no matter which cover you
+click, you'll end up reading the same comic. You can use the left and right
+arrows on the keyboard to move forward and backward through the pages or click
+on the left third or right third of a page to do the same.
+
+That's it.
+
+However, I did get to try out a lot of JavaScript/jQuery stuff I had not tried
+out before and I've got my first DWR code in there to let me communicate some
+info from the server to the client UI. I'll build from there to get lists of
+comics to display and let you see multiple different comics.
+
+Tech Overview
+
+Client Side: HTML, CSS, and JavaScript with jQuery. That's it for the moment and
+I got the best parts of it from the HTML 5 Boilerplate 
+(http://html5boilerplate.com/). You can see most of my contribution thus far in 
+the war/index.html and war/js/script.js files.
+
+Server Side: Java, DWR. That's it for the moment although clearly the server
+side has a lot of complexity that will have to be added including things like
+search (probably Solr), persistence of info about the comics (probably 
+Hibernate), possibly dependency injection (Spring), and actually pulling apart
+a CBZ file into its constituent parts in order to serve up individual page
+images to the client. 
+
 Note: There are a couple of comics in the war/comics directory that I'm using
 for testing. Both are out of copyright, see (http://digitalcomicmuseum.com/) for
 more information and other golden age comics that never had their copyrights
