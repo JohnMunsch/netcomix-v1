@@ -1,0 +1,8 @@
+Testing out ideas for a CBZ comics reader that would have a nice UI written in
+HTML, CSS, and JavaScript (with a healthy dose of jQuery) and a very simple
+server API.
+
+Note: There are a couple of comics in the war/comics directory that I'm using
+for testing. Both are out of copyright, see (http://digitalcomicmuseum.com/) for
+more information and other golden age comics that never had their copyrights
+renewed.
