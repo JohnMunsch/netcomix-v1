@@ -1,0 +1,1 @@
+cp dist\netcomix.war "c:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\netcomix.war"

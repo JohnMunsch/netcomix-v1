@@ -1,0 +1,1 @@
+cp dist/netcomix.war ~/opt/apache-tomcat-7.0.16/webapps

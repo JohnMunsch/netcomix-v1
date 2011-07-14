@@ -44,19 +44,19 @@
     <div id="main" class="container_12" role="main">
 	  <div id="browse">
 	    <div class="item">
-		  <a onclick="read(comic1);"><img height="100" src="comics/Baffling Mysteries 006 (1952)/scan0000_thumbnail.jpg"/></a>
+		  <a onclick="read('comic1');"><img height="100" src="comics/Baffling Mysteries 006 (1952)/scan0000_thumbnail.jpg"/></a>
 		</div>
 
 		<div class="item">
-		  <a onclick="read(comic2);"><img height="100" src="comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/01_thumbnail.jpg"/></a>
+		  <a onclick="read('comic2');"><img height="100" src="comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/01_thumbnail.jpg"/></a>
 		</div>
 
 		<div class="item">
-		  <a onclick="read(comic3);"><img height="100" src="comics/Wow Comics 01f (1940) (c2c)/01_thumbnail.jpg"/></a>
+		  <a onclick="read('comic3');"><img height="100" src="comics/Wow Comics 01f (1940) (c2c)/01_thumbnail.jpg"/></a>
 		</div>
 
 		<div class="item">
-		  <a onclick="read(comic4);"><img height="100" src="comics/Wow Comics 02f (1941) (c2c)/01_thumbnail.jpg"/></a>
+		  <a onclick="read('comic4');"><img height="100" src="comics/Wow Comics 02f (1941) (c2c)/01_thumbnail.jpg"/></a>
 		</div>
       </div> <!-- #container -->
       <div id="page"><img></div>
@@ -79,7 +79,10 @@
   <script src="js/script.js"></script>
   <!-- end scripts-->
 
-
+  <script type='text/javascript' src='/netcomix/dwr/engine.js'></script>
+  <script type='text/javascript' src='/netcomix/dwr/interface/netcomixServer.js'></script>
+  <script type='text/javascript' src='/netcomix/dwr/util.js'></script>
+  
   <!--[if lt IE 7 ]>
     <script src="js/libs/dd_belatedpng.js"></script>
     <script>DD_belatedPNG.fix("img, .png_bg"); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>

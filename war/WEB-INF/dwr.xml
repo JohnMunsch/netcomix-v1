@@ -5,7 +5,7 @@
 <dwr>
   <allow>
     <create creator="new" javascript="netcomixServer">
-      <param name="class" value="com.johnmunsch.netcomix.Bean"/>
+      <param name="class" value="com.johnmunsch.netcomix.Server"/>
     </create>
   </allow>
 </dwr>
