@@ -258,6 +258,13 @@ public class Server {
   // { \"src\" : \"comics/Wow Comics 02f (1941) (c2c)/68.jpg\" },
 // ]);
 
+    /**
+     * Look up the comic based on the incoming hash and return all of its
+     * details.
+     * 
+     * @param hash
+     * @return
+     */
     public String getComic(String hash) {
     	return comic1;
     }
