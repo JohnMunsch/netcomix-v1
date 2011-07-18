@@ -1,11 +1,14 @@
-Testing out ideas for a CBZ comics reader that would have a nice UI written in
-HTML, CSS, and JavaScript (with a healthy dose of jQuery) and a very simple
-server API.
+Introduction
+
+This is a project for testing out ideas for a CBZ comics reader that would have 
+a nice UI written in HTML, CSS, and JavaScript (with a healthy dose of jQuery) 
+and a very simple server API.
 
 Here's what it can do today (and it's not much). You can build it with Apache
-Ant, you can deploy the resulting WAR file (dist/netcomix.war) to a Java EE
-server (I used Tomcat), you can visit the web app in your browser and you'll
-see some thumbnail covers.
+Ant (I used 1.8.2) and Java 6 (I used 1.6.0_26), then you can deploy the 
+resulting WAR file (dist/netcomix.war) to a Java EE server (I used Tomcat 
+7.0.16), and you can visit the web app in your browser and you'll see some 
+thumbnail images of comic covers.
 
 Click one to start reading a comic. At the moment, no matter which cover you
 click, you'll end up reading the same comic. You can use the left and right
@@ -34,6 +37,8 @@ a CBZ file into its constituent parts in order to serve up individual page
 images to the client. 
 
 Note: There are a couple of comics in the war/comics directory that I'm using
-for testing. Both are out of copyright, see (http://digitalcomicmuseum.com/) for
-more information and other golden age comics that never had their copyrights
-renewed.
+for testing. Both are out of copyright, see Digital Comic Museum 
+(http://digitalcomicmuseum.com/) for more information and other golden age 
+comics that never had their copyrights renewed. Another similar site is 
+Golden Age Comics (http://goldenagecomics.co.uk/) though I haven't spent much 
+time there yet.

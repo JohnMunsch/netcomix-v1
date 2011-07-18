@@ -127,26 +127,6 @@ function read(hash) {
 }
 
 $(document).ready(function() {
-  var $container = $('#browse');
-    
-  $container.isotope({
-    itemSelector : '.item',
-    masonry : {
-      columnWidth : 120
-    },
-    masonryHorizontal : {
-      rowHeight: 120
-    },
-    cellsByRow : {
-      columnWidth : 240,
-      rowHeight : 240
-    },
-    cellsByColumn : {
-      columnWidth : 240,
-      rowHeight : 240
-    }
-  });
-  
   $("#page img").click(function(e) {
 	// Based upon where the user clicked, move to the next or previous page.
 	var x = e.pageX - this.offsetLeft;
