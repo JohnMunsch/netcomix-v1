@@ -42,6 +42,10 @@
         </war>
     </target>
 
+	<target name="install" depends="dist" description="Build the distributables and install them on the local web server.">
+		<copy file="${dist.dir}/netcomix.war" todir="/Users/John/opt/apache-tomcat-7.0.16/webapps"/>
+	</target>
+
 	<target name="all" depends="dist" description="Build and test everything; create a distribution."/>
 	
     <target name="javadocs" depends="init" description="Generate the Javadoc pages.">

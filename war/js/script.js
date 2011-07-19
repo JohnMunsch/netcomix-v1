@@ -126,11 +126,15 @@ function read(hash) {
   });
 }
 
-$(document).ready(function() {
+function bindMenu() {
+  $("#home").click(browse);
+}
+
+function setupPageTurning() {
   $("#page img").click(function(e) {
-	// Based upon where the user clicked, move to the next or previous page.
-	var x = e.pageX - this.offsetLeft;
-	var y = e.pageY - this.offsetTop;
+    // Based upon where the user clicked, move to the next or previous page.
+    var x = e.pageX - this.offsetLeft;
+    var y = e.pageY - this.offsetTop;
 
     // Page width is 960 pixels so the left 320 is the same as left arrow
 	// and the rightmost 320 pixels is the same as right arrow.
@@ -146,18 +150,23 @@ $(document).ready(function() {
   // will bubble up and work.
   $(document).keyup(function(e) {
 	switch (e.which) {
-		case 37:
-		  // <-
-		  page.previousPage();
-		  break;
-		case 39:
-		  // ->
-		  page.nextPage();
-		  break;
-		case 77:
-		  // m
-		  // page.magnify();
-		  break;
-	}
+      case 37:
+        // <-
+        page.previousPage();
+        break;
+      case 39:
+        // ->
+        page.nextPage();
+        break;
+      case 77:
+        // m
+        // page.magnify();
+        break;
+    }
   });
+}
+
+$(document).ready(function() {
+  bindMenu();
+  setupPageTurning();
 });

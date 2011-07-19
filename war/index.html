@@ -37,19 +37,16 @@
   <div id="container">
     <header class="container_12">
       <div id="header-contents">
-        <span id="title"><a onclick="browse();">netcomix</a></span>
-        <span id="menu">logout</span>
+        <span id="home">netcomix</span>
+        <span id="logout">logout</span>
       </div>
     </header>
     <div id="main" class="container_12" role="main">
 	  <div id="browse">
-	    <div class="item">
-		  <a onclick="read('comic1');"><img height="100" src="comics/Baffling Mysteries 006 (1952)/scan0000_thumbnail.jpg"/></a>
-		</div>
-
-		<div class="item">
-		  <a onclick="read('comic2');"><img height="100" src="comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/01_thumbnail.jpg"/></a>
-		</div>
+	    <ul>
+	      <li><a onclick="read('comic1');"><img height="100" src="comics/Baffling Mysteries 006 (1952)/scan0000_thumbnail.jpg"/></a></li>
+		  <li><a onclick="read('comic2');"><img height="100" src="comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/01_thumbnail.jpg"/></a></li>
+		</ul>
       </div> <!-- #container -->
       <div id="page"><img></div>
     </div>
@@ -82,7 +79,7 @@
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
-    var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
+    var _gaq=[["_setAccount","UA-87100-8"],["_trackPageview"]];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
     g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
     s.parentNode.insertBefore(g,s)}(document,"script"));
