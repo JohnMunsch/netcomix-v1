@@ -1,5 +1,8 @@
 package com.johnmunsch.netcomix;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Server {
     private String comic1 = 
         "{ \"title\" : \"Baffling Mysteries\", " +
@@ -258,6 +261,10 @@ public class Server {
   // { \"src\" : \"comics/Wow Comics 02f (1941) (c2c)/68.jpg\" },
 // ]);
 
+    public List<Comic> getNewsstand() {
+    	return new ArrayList<Comic>();
+    }
+    
     /**
      * Look up the comic based on the incoming hash and return all of its
      * details.
