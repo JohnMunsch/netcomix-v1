@@ -7,5 +7,7 @@
     <create creator="new" javascript="netcomixServer">
       <param name="class" value="com.johnmunsch.netcomix.Server"/>
     </create>
+    
+    <convert converter="bean" match="com.johnmunsch.netcomix.Comic"/>
   </allow>
 </dwr>

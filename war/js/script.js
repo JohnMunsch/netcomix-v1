@@ -1,14 +1,14 @@
 function Comic(values) {
-    this.title = values.title;
-	this.volume = values.volume;
-	this.issue = values.issue;
-	this.pages = values.pages;
-	
-	this.currentPage = 0;
+  this.title = values.title;
+  this.volume = values.volume;
+  this.issue = values.issue;
+  this.pages = values.pages;
+
+  this.currentPage = 0;
 }
 
 Comic.prototype.page = function () {
-  return this.pages[this.currentPage].src;
+  return this.pages[this.currentPage];
 };
 
 Comic.prototype.next = function () {
@@ -106,6 +106,12 @@ var page = new Page();
   
 // Hide the reading interface and show the browsing interface.
 function browse() {
+  netcomixServer.getNewsstand(function (comics) {
+    comics.forEach(function (comic) {
+      
+    });
+  });
+  
   $('#page').hide();
   $('#browse').show();
 }
@@ -114,15 +120,12 @@ function browse() {
 // loading the specified comic for reading.
 function read(hash) {
   // Get the comic's info from the server.
-  netcomixServer.getComic(hash, function (jsonString) {
-	console.log(jsonString);
-    comic = new Comic(jQuery.parseJSON(jsonString));
-
+  netcomixServer.getComic(hash, function (comic) {
     // Once we've got it, shift into reading mode.
     $('#browse').hide();
     $('#page').show();
-  
-    page.init(comic);
+
+    page.init(new Comic(comic));
   });
 }
 
