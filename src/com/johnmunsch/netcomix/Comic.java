@@ -6,15 +6,20 @@ public class Comic {
 	protected String title;
     protected int volume;
     protected int issue;
+    protected String hash;
     protected List<String> pages;
+    protected List<String> thumbnails;
 
-    public Comic(String title, int volume, int issue, List<String> pages) {
+    public Comic(String title, int volume, int issue, String hash,
+    		List<String> pages, List<String> thumbnails) {
 		super();
 
 		this.title = title;
 		this.volume = volume;
 		this.issue = issue;
+		this.hash = hash;
 		this.pages = pages;
+		this.thumbnails = thumbnails;
 	}
 
 	public String getTitle() {
@@ -29,10 +34,18 @@ public class Comic {
 		return issue;
 	}
 
+	public String getHash() {
+		return hash;
+	}
+
 	public List<String> getPages() {
 		return pages;
 	}
 
+	public List<String> getThumbnails() {
+		return thumbnails;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -44,6 +57,8 @@ public class Comic {
 		builder.append(issue);
 		builder.append(", pages=");
 		builder.append(pages);
+		builder.append(", thumbnails=");
+		builder.append(thumbnails);
 		builder.append("]");
 		return builder.toString();
 	}

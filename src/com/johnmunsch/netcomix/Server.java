@@ -2,6 +2,7 @@ package com.johnmunsch.netcomix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class Server {
@@ -39,6 +40,42 @@ public class Server {
 	    "comics/Baffling Mysteries 006 (1952)/scan0030.jpg", 
 	    "comics/Baffling Mysteries 006 (1952)/scan0031.jpg", 
 	    "comics/Baffling Mysteries 006 (1952)/scan0032.jpg"
+	};
+
+    private String bafflingMysteriesThumbnails[] = {
+	    "comics/Baffling Mysteries 006 (1952)/scan0000_thumbnail.jpg",
+	    "comics/Baffling Mysteries 006 (1952)/scan0001_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0002_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0003_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0004_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0005_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0006_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0007_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0008_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0009_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0010_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0011_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0012_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0013_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0014_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0015_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0016_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0017_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0018_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0019_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0020_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0021_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0022_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0023_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0024_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0025_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0026_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0027_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0028_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0029_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0030_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0031_thumbnail.jpg", 
+	    "comics/Baffling Mysteries 006 (1952)/scan0032_thumbnail.jpg"
 	};
 
     private String captainAeroComicsPages[] = {
@@ -110,6 +147,75 @@ public class Server {
         "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/68.jpg"
     };
 
+    private String captainAeroComicsThumbnails[] = {
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/01_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/03_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/04_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/05_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/06_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/07_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/08_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/09_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/10_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/11_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/12_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/13_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/14_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/15_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/16_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/17_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/18_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/19_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/20_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/21_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/22_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/23_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/24_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/25_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/26_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/27_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/28_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/29_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/30_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/31_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/32_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/33_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/34_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/35_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/36_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/37_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/38_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/39_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/40_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/41_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/42_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/43_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/44_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/45_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/46_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/47_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/48_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/49_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/50_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/51_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/52_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/53_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/54_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/55_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/56_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/57_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/58_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/59_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/60_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/61_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/62_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/63_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/64_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/65_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/66_thumbnail.jpg", 
+        "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/68_thumbnail.jpg"
+    };
+    
     private String wowComics1Pages[] = {
         "comics/Wow Comics 01f (1940) (c2c)/01.jpg", 
         "comics/Wow Comics 01f (1940) (c2c)/02.jpg", 
@@ -252,16 +358,21 @@ public class Server {
         "comics/Wow Comics 02f (1941) (c2c)/68.jpg"
     };
     private Comic bafflingMysteries = 
-    		new Comic("Baffling Mysteries", 1, 6, Arrays.asList(bafflingMysteriesPages));
+    		new Comic("Baffling Mysteries", 1, 6, "comic1",
+    				Arrays.asList(bafflingMysteriesPages),
+    				Arrays.asList(bafflingMysteriesThumbnails));
     private Comic captainAeroComics = 
-    		new Comic("Captain Aero Comics", 1, 1, Arrays.asList(captainAeroComicsPages)); 
-    
-    public List<Comic> getNewsstand() {
-    	List<Comic> comics = new ArrayList<Comic>();
+    		new Comic("Captain Aero Comics", 1, 1, "comic2",
+    				Arrays.asList(captainAeroComicsPages),
+    				Arrays.asList(captainAeroComicsThumbnails));
+    List<Comic> comics = new ArrayList<Comic>();
 
+    public Server() {
     	comics.add(bafflingMysteries);
         comics.add(captainAeroComics);
-    	
+    }
+    
+    public List<Comic> getNewsstand() {
     	return comics;
     }
     
@@ -273,6 +384,14 @@ public class Server {
      * @return
      */
     public Comic getComic(String hash) {
-    	return bafflingMysteries;
+    	Iterator comicIterator = comics.iterator();
+
+    	for (Comic comic : comics) {
+			if (comic.getHash().equals(hash)) {
+				return comic;
+			}
+		}
+    	
+    	return null;
     }
 }

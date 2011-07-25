@@ -107,9 +107,14 @@ var page = new Page();
 // Hide the reading interface and show the browsing interface.
 function browse() {
   netcomixServer.getNewsstand(function (comics) {
+	var list = $("#browse ul");
+	var items;
+	
     comics.forEach(function (comic) {
-      
+      // Add HTML to a string for each item we are adding to the UI.
+      items += "<li><a onclick=\"read('" + comic.hash + "');\"><img height=\"100\" src=\"" + comic.thumbnails[0] + "\"/></a></li>";
     });
+    list.html(items);
   });
   
   $('#page').hide();
