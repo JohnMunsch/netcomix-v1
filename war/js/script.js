@@ -177,4 +177,6 @@ function setupPageTurning() {
 $(document).ready(function() {
   bindMenu();
   setupPageTurning();
+
+  browse();
 });

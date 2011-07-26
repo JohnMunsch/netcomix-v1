@@ -10,17 +10,16 @@ resulting WAR file (dist/netcomix.war) to a Java EE server (I used Tomcat
 7.0.16), and you can visit the web app in your browser and you'll see some 
 thumbnail images of comic covers.
 
-Click one to start reading a comic. At the moment, no matter which cover you
-click, you'll end up reading the same comic. You can use the left and right
-arrows on the keyboard to move forward and backward through the pages or click
-on the left third or right third of a page to do the same.
+Click one to start reading a comic (there are only two from which to chose :). 
+You can use the left and right arrows on the keyboard to move forward and 
+backward through the pages or click on the left third or right third of a page 
+to page through with the mouse.
 
 That's it.
 
 However, I did get to try out a lot of JavaScript/jQuery stuff I had not tried
 out before and I've got my first DWR code in there to let me communicate some
-info from the server to the client UI. I'll build from there to get lists of
-comics to display and let you see multiple different comics.
+info from the server to the client UI.
 
 Tech Overview
 
