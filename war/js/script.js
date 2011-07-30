@@ -3,9 +3,14 @@ function Comic(values) {
   this.volume = values.volume;
   this.issue = values.issue;
   this.pages = values.pages;
+  this.hash = values.hash;
 
   this.currentPage = 0;
 }
+
+Comic.prototype.getHash = function () {
+  return this.hash;
+};
 
 Comic.prototype.page = function () {
   return this.pages[this.currentPage];
@@ -21,6 +26,10 @@ Comic.prototype.previous = function () {
   if (this.currentPage > 0) {
     this.currentPage--;
   }
+};
+
+Comic.prototype.flipTo = function (newPage) {
+  this.currentPage = newPage;
 };
 
 // The page is basically a control that sits atop the comic and the DOM
@@ -39,6 +48,12 @@ Page.prototype.init = function(comic) {
   
   // Display the cover page.
   this.displayPage();
+};
+
+Page.prototype.isCurrentComic = function(hash) {
+  if (this.currentComic != null) {
+    return (this.currentComic.getHash() === hash);
+  }
 };
 
 Page.prototype.resize = function(tempImage) {
@@ -61,16 +76,23 @@ Page.prototype.resize = function(tempImage) {
   }
 
   // Set the source of the image and then change its size to scale it.
-  // Browser scaling isn't perfect, but these days most browsers call functions that 
-  // use graphics hardware to do high quality scaling quickly.
+  // Browser scaling isn't perfect, but these days most browsers call functions 
+  // that use graphics hardware to do high quality scaling quickly.
   this.image.attr("src", this.currentComic.page());
 
   this.image.attr("width", width);
   this.image.attr("height", height);
 };
 
-Page.prototype.displayPage = function() {
+// state: comic=<comic's hash>&displayPage=<current page number>
+Page.prototype.displayPage = function () {
   if (this.currentComic != null) {
+    // History setup.
+    $.bbq.pushState({
+      comic: this.currentComic.hash, 
+      displayPage: this.currentComic.currentPage
+    }, 2);
+
     // Create a temporary image to load into to find the
     // size of the image prior to scaling and displaying.
     var tempImage = new Image();
@@ -78,7 +100,7 @@ Page.prototype.displayPage = function() {
 
     tempImage.name = this.currentComic.page();
     tempImage.onload = function () {
-	  window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
 
       // When this function is called, "this" points to something other
       // than the page, that's why I copied it to the page variable above.
@@ -88,14 +110,21 @@ Page.prototype.displayPage = function() {
   }
 };
 
-Page.prototype.nextPage = function() {
+Page.prototype.flipTo = function (newPage) {
+  if (this.currentComic != null) {
+	this.currentComic.flipTo(newPage);
+	this.displayPage();
+  }
+};
+
+Page.prototype.nextPage = function () {
   if (this.currentComic != null) {
     this.currentComic.next();
     this.displayPage();
   }
 };
 
-Page.prototype.previousPage = function() {
+Page.prototype.previousPage = function () {
   if (this.currentComic != null) {
     this.currentComic.previous();
     this.displayPage();
@@ -103,12 +132,16 @@ Page.prototype.previousPage = function() {
 };
 
 var page = new Page();
-  
+
 // Hide the reading interface and show the browsing interface.
+// state: browse=true
 function browse() {
+  // History setup.
+  $.bbq.pushState({browse: true}, 2);
+  
   netcomixServer.getNewsstand(function (comics) {
 	var list = $("#browse ul");
-	var items;
+	var items = "";
 	
     comics.forEach(function (comic) {
       // Add HTML to a string for each item we are adding to the UI.
@@ -117,8 +150,7 @@ function browse() {
     list.html(items);
   });
   
-  $('#page').hide();
-  $('#browse').show();
+  uiMode("browse");
 }
 
 // Hide the browsing interface and show the reading interface,
@@ -126,14 +158,24 @@ function browse() {
 function read(hash) {
   // Get the comic's info from the server.
   netcomixServer.getComic(hash, function (comic) {
-    // Once we've got it, shift into reading mode.
-    $('#browse').hide();
-    $('#page').show();
-
     page.init(new Comic(comic));
+
+    // Once we've got it, shift into reading mode.
+    uiMode("read");
   });
 }
 
+function uiMode(mode) {
+  if (("read" === mode) && ($("#browse").is(":visible"))) {
+    $("#browse").hide();
+    $("#page").show();
+  } else if (("browse" === mode) && ($("#page").is(":visible"))) {
+    $("#page").hide();
+    $("#browse").show();
+  }
+}
+
+// Helpers for binding controls to commands.
 function bindMenu() {
   $("#home").click(browse);
 }
@@ -174,9 +216,37 @@ function setupPageTurning() {
   });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   bindMenu();
   setupPageTurning();
 
-  browse();
+  // Bind a callback that executes when document.location.hash changes.
+  $(window).bind("hashchange", function(e) {
+    var state = $.bbq.getState();
+
+    // Figure out what sort of command should be executed to get us to get the
+    // UI to reflect the state in the URL.
+    if (typeof state.comic != "undefined") {
+      // Do we have a comic currently and if so, is it the same one referred to
+      // in the state? If not load it.
+      if (!page.isCurrentComic(state.comic)) {
+        netcomixServer.getComic(state.comic, function (comic) {
+          page.init(new Comic(comic));
+
+          page.flipTo(state.displayPage);
+        });
+      } else {
+    	page.flipTo(state.displayPage);
+      }
+
+      uiMode("read");
+    } else {
+      browse();
+    }
+  });
+
+  // Since the event is only triggered when the hash changes, we need
+  // to trigger the event now, to handle the hash the page may have
+  // loaded with.
+  $(window).trigger("hashchange");
 });
