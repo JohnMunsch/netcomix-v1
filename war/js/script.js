@@ -29,7 +29,9 @@ Comic.prototype.previous = function () {
 };
 
 Comic.prototype.flipTo = function (newPage) {
-  this.currentPage = newPage;
+  if (newPage >= 0 && newPage < this.pages.length) {
+    this.currentPage = newPage;
+  }
 };
 
 // The page is basically a control that sits atop the comic and the DOM
@@ -50,9 +52,26 @@ Page.prototype.init = function(comic) {
   this.displayPage();
 };
 
+Page.prototype.load = function(hash, afterLoad) {
+  // Check to make sure we haven't already loaded that particular comic. If we
+  // have then there's no point in doing anything.
+  if (!this.isCurrentComic(hash)) {
+    // Get the comic's info from the server.
+    netcomixServer.getComic(hash, function (comic) {
+      page.init(new Comic(comic));
+      
+      afterLoad();
+    });
+  } else {
+    afterLoad();
+  }
+};
+
 Page.prototype.isCurrentComic = function(hash) {
   if (this.currentComic != null) {
     return (this.currentComic.getHash() === hash);
+  } else {
+    return false;
   }
 };
 
@@ -84,15 +103,8 @@ Page.prototype.resize = function(tempImage) {
   this.image.attr("height", height);
 };
 
-// state: comic=<comic's hash>&displayPage=<current page number>
 Page.prototype.displayPage = function () {
   if (this.currentComic != null) {
-    // History setup.
-    $.bbq.pushState({
-      comic: this.currentComic.hash, 
-      displayPage: this.currentComic.currentPage
-    }, 2);
-
     // Create a temporary image to load into to find the
     // size of the image prior to scaling and displaying.
     var tempImage = new Image();
@@ -110,23 +122,55 @@ Page.prototype.displayPage = function () {
   }
 };
 
-Page.prototype.flipTo = function (newPage) {
+Page.prototype.flipTo = function (newPage, updateHistory) {
   if (this.currentComic != null) {
-	this.currentComic.flipTo(newPage);
-	this.displayPage();
-  }
-};
+    this.currentComic.flipTo(newPage);
 
-Page.prototype.nextPage = function () {
-  if (this.currentComic != null) {
-    this.currentComic.next();
+    // This function is sometimes invoked in response to user interaction (that
+    // is, I want to go to page 25) and sometimes in response to history changes
+    // within the browser, if due to the latter, we don't want to update the
+    // history in response to our page change.
+    if (updateHistory) {
+      $.bbq.pushState({
+        comic: this.currentComic.hash, 
+        displayPage: this.currentComic.currentPage
+      }, 2);
+    }
+
     this.displayPage();
   }
 };
 
+// User interface function to flip to the next page.
+Page.prototype.nextPage = function () {
+  if (this.currentComic != null) {
+    this.currentComic.next();
+    
+    // This function is invoked only in response to user interaction, not
+    // history events, so it's OK for us to manipulate the history at this 
+    // point.
+    $.bbq.pushState({
+      comic: this.currentComic.hash, 
+      displayPage: this.currentComic.currentPage
+    }, 2);
+
+    this.displayPage();
+  }
+};
+
+// User interface function to flip to the previous page.
 Page.prototype.previousPage = function () {
   if (this.currentComic != null) {
     this.currentComic.previous();
+
+    // This function is invoked only in response to user interaction, not
+    // history events, so it's OK for us to manipulate the history at this 
+    // point.
+    $.bbq.pushState({
+      comic: this.currentComic.hash, 
+      displayPage: this.currentComic.currentPage
+    }, 2);
+
     this.displayPage();
   }
 };
@@ -134,37 +178,43 @@ Page.prototype.previousPage = function () {
 var page = new Page();
 
 // Hide the reading interface and show the browsing interface.
-// state: browse=true
 function browse() {
-  // History setup.
-  $.bbq.pushState({browse: true}, 2);
-  
+  // Initialize the browsing interface with an list of comics from which to
+  // pick.
   netcomixServer.getNewsstand(function (comics) {
-	var list = $("#browse ul");
-	var items = "";
-	
+    var list = $("#browse ul");
+    var items = "";
+
     comics.forEach(function (comic) {
-      // Add HTML to a string for each item we are adding to the UI.
-      items += "<li><a onclick=\"read('" + comic.hash + "');\"><img height=\"100\" src=\"" + comic.thumbnails[0] + "\"/></a></li>";
+      // Add HTML to a string for each item we are adding to the UI. It invokes
+      // the function to start reading the comic at a particular page (the
+      // first page in this case).
+      items += "<li><a onclick=\"loadAndRead('" + comic.hash + "', 0);\"><img height=\"100\" src=\"" + comic.thumbnails[0] + "\"/></a></li>";
     });
+    
     list.html(items);
+
+    // Now that we've populated it with something, display the controls for
+    // browsing.
+    uiMode("browse");
   });
-  
-  uiMode("browse");
 }
 
 // Hide the browsing interface and show the reading interface,
 // loading the specified comic for reading.
-function read(hash) {
-  // Get the comic's info from the server.
-  netcomixServer.getComic(hash, function (comic) {
-    page.init(new Comic(comic));
+function loadAndRead(hash, newPage) {
+  page.load(hash, function () {
+    page.flipTo(newPage, true);
 
-    // Once we've got it, shift into reading mode.
+    // Once we're on the right page in the right comic, shift into reading mode.
     uiMode("read");
   });
 }
 
+// If we're already in the correct mode, we don't need to flip, just ignore the
+// request. This can easily happen when we're moving backward and forward
+// through the browser history or when we click on a saved link or one sent to
+// us.
 function uiMode(mode) {
   if (("read" === mode) && ($("#browse").is(":visible"))) {
     $("#browse").hide();
@@ -177,7 +227,10 @@ function uiMode(mode) {
 
 // Helpers for binding controls to commands.
 function bindMenu() {
-  $("#home").click(browse);
+  $("#home").click(function () {
+    // History setup.
+    $.bbq.pushState({}, 2);  
+  });
 }
 
 function setupPageTurning() {
@@ -186,20 +239,20 @@ function setupPageTurning() {
     var x = e.pageX - this.offsetLeft;
     var y = e.pageY - this.offsetTop;
 
-    // Page width is 960 pixels so the left 320 is the same as left arrow
-	// and the rightmost 320 pixels is the same as right arrow.
-	if (x < 320) {
-	  page.previousPage();
-	} else if (x >= 640) {
-	  page.nextPage();
-	}
+    // Page width is 960 pixels so we treat a click in the left 320 is the same 
+    // as left arrow and the rightmost 320 pixels is the same as right arrow.
+    if (x < 320) {
+      page.previousPage();
+    } else if (x >= 640) {
+      page.nextPage();
+    }
   });
 
   // Bind keys to actions within the interface. Note: They are bound to 
   // the document as a whole so no matter what has the current focus, they
   // will bubble up and work.
   $(document).keyup(function(e) {
-	switch (e.which) {
+    switch (e.which) {
       case 37:
         // <-
         page.previousPage();
@@ -229,17 +282,11 @@ $(document).ready(function () {
     if (typeof state.comic != "undefined") {
       // Do we have a comic currently and if so, is it the same one referred to
       // in the state? If not load it.
-      if (!page.isCurrentComic(state.comic)) {
-        netcomixServer.getComic(state.comic, function (comic) {
-          page.init(new Comic(comic));
+      page.load(state.comic, function () {
+        page.flipTo(state.displayPage, false);
 
-          page.flipTo(state.displayPage);
-        });
-      } else {
-    	page.flipTo(state.displayPage);
-      }
-
-      uiMode("read");
+        uiMode("read");
+      });
     } else {
       browse();
     }
