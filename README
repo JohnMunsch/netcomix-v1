@@ -15,6 +15,11 @@ You can use the left and right arrows on the keyboard to move forward and
 backward through the pages or click on the left third or right third of a page 
 to page through with the mouse.
 
+Notice that despite it being a so-called "one page app" all of the browser
+history buttons work perfectly well to move backwards and forwards through the
+pages you've visited. You can also bookmark pages and send a link to someone
+else to have them jump directly to a specific page within a comic. 
+
 That's it.
 
 However, I did get to try out a lot of JavaScript/jQuery stuff I had not tried
@@ -23,8 +28,8 @@ info from the server to the client UI.
 
 Tech Overview
 
-Client Side: HTML, CSS, and JavaScript with jQuery. That's it for the moment and
-I got the best parts of it from the HTML 5 Boilerplate 
+Client Side: HTML, CSS, JavaScript with jQuery, and jQuery BBQ. That's it for 
+the moment and I got the best parts of it from the HTML 5 Boilerplate 
 (http://html5boilerplate.com/). You can see most of my contribution thus far in 
 the war/index.html and war/js/script.js files.
 
