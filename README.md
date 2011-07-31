@@ -27,6 +27,9 @@ However, I did get to try out a lot of JavaScript/jQuery stuff I had not tried
 out before and I've got my first DWR code in there to let me communicate some
 info from the server to the client UI.
 
+Be sure to check the wiki to see info about where I'm hoping to take this as I
+continue to revise and improve it: https://github.com/JohnMunsch/netcomix/wiki
+
 Tech Overview
 -------------
 
