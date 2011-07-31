@@ -1,5 +1,4 @@
 Introduction
-------------
 
 This is a project for testing out ideas for a CBZ comics reader that would have 
 a nice UI written in HTML, CSS, and JavaScript (with a healthy dose of jQuery) 
@@ -28,7 +27,6 @@ out before and I've got my first DWR code in there to let me communicate some
 info from the server to the client UI.
 
 Tech Overview
--------------
 
 Client Side: HTML, CSS, JavaScript with jQuery, and jQuery BBQ. That's it for 
 the moment and I got the best parts of it from the HTML 5 Boilerplate 
