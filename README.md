@@ -42,6 +42,9 @@ Hibernate), possibly dependency injection (Spring), and actually pulling apart
 a CBZ file into its constituent parts in order to serve up individual page
 images to the client. 
 
+Notes
+-----
+
 Note: There are a couple of comics in the war/comics directory that I'm using
 for testing. Both are out of copyright, see Digital Comic Museum 
 (http://digitalcomicmuseum.com/) for more information and other golden age 
