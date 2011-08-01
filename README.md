@@ -38,12 +38,23 @@ the moment and I got the best parts of it from the HTML 5 Boilerplate
 (http://html5boilerplate.com/). You can see most of my contribution thus far in 
 the war/index.html and war/js/script.js files.
 
-Server Side: Java, DWR. That's it for the moment although clearly the server
-side has a lot of complexity that will have to be added including things like
-search (probably Solr), persistence of info about the comics (probably 
-Hibernate), possibly dependency injection (Spring), and actually pulling apart
-a CBZ file into its constituent parts in order to serve up individual page
-images to the client. 
+Server Side: Java, DWR, Hibernate, HyperSQL. That's it for the moment although 
+clearly the server side has a lot of complexity that will have to be added 
+including things like search (probably Solr), possibly dependency injection 
+(Spring), and actually pulling apart a CBZ file into its constituent parts in 
+order to serve up individual page images to the client. 
+
+I have to say that I've been really pleased with building this out the way I've
+done it so far. Step one was a client based sample that had all of its data 
+canned on the client side (but access to the data was encapsulated so it would 
+be easy to swap out later). Step two inserted DWR so it was still getting canned 
+data but now it was getting it from the server like it would do in the final 
+system. And step three will be the server still getting canned data but it will
+pull it from the database so that portion too will be like in the final system.
+Step four will be the population of the database with real data rather than
+canned data and a rudimentary but functional version of the app will be 
+available. I'm inclined to say that most any one page app could be built in this
+same fashion and I hope to put that to the test in later projects.
 
 Notes
 -----
