@@ -181,7 +181,8 @@ footer { color: white; }
 #page img { display: block; margin-left: auto; margin-right: auto; }
 #browse { }
 
-
+#copyright { background-color: slategray; text-align: center; }
+#copyright a { color: lightgray; }
 
 
 
