@@ -2,7 +2,6 @@ package com.johnmunsch.netcomix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class Server {
@@ -384,8 +383,6 @@ public class Server {
      * @return
      */
     public Comic getComic(String hash) {
-    	Iterator comicIterator = comics.iterator();
-
     	for (Comic comic : comics) {
 			if (comic.getHash().equals(hash)) {
 				return comic;

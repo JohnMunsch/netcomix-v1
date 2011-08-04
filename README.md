@@ -33,7 +33,7 @@ continue to revise and improve it: https://github.com/JohnMunsch/netcomix/wiki
 License
 -------
 
-Copyright (c) 2011, John Munsch
+Copyright (c) 2011, John Munsch  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, 
