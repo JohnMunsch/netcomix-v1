@@ -402,10 +402,16 @@ public class Server {
     
     public List<Comic> processIncomingDirectory() {
     	List<Comic> comicsAdded = new ArrayList<Comic>();
+    	File incomingDirectory = new File("/Users/John/Documents/netcomix/incoming/");
     	
-    	String currentDir = new File(".").getAbsolutePath();
-    	log.info(currentDir);
-    	
+		try {
+			ComicProcessor processor = new ComicProcessor(comicsAdded);
+			
+			processor.traverse(incomingDirectory);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
     	return comicsAdded;
     }
 }

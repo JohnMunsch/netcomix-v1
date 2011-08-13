@@ -238,7 +238,7 @@ function bindMenu() {
   });
   
   $("span#admin").click(function () {
-    $.bbq.pushState({}, 2);
+    $.bbq.pushState({admin: true}, 2);
   });
 }
 
