@@ -36,3 +36,5 @@ dist
 # build script local files
 war/build/buildinfo.properties
 war/build/config/buildinfo.properties
+
+incoming/
