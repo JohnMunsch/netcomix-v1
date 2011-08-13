@@ -174,8 +174,9 @@ footer { color: white; }
 
 #header-contents { padding-left: 25px; padding-right: 25px; position: relative; top: 50%; height: 1.2em; margin-top: -.75em; }
 
-#home { font-size: 1.2em; cursor: pointer; }
-#logout { font-size: 1.2em; float: right; cursor: pointer; }
+span#home { font-size: 1.2em; cursor: pointer; }
+span#admin { font-size: 1.2em; cursor: pointer; }
+span#logout { font-size: 1.2em; float: right; cursor: pointer; }
 
 #page { display: none; height: 1473px; background-color: slategray; }
 #page img { display: block; margin-left: auto; margin-right: auto; }

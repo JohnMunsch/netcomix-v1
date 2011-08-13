@@ -1,8 +1,10 @@
 package com.johnmunsch.netcomix;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Server {
     private String bafflingMysteriesPages[] = {
@@ -365,12 +367,18 @@ public class Server {
     				Arrays.asList(captainAeroComicsPages),
     				Arrays.asList(captainAeroComicsThumbnails));
     List<Comic> comics = new ArrayList<Comic>();
+    Logger log = Logger.getLogger(Server.class.getName());
 
     public Server() {
     	comics.add(bafflingMysteries);
         comics.add(captainAeroComics);
     }
     
+    /**
+     * Get a list of comics to display in a browsing context for the user.
+     * 
+     * @return
+     */
     public List<Comic> getNewsstand() {
     	return comics;
     }
@@ -390,5 +398,14 @@ public class Server {
 		}
     	
     	return null;
+    }
+    
+    public List<Comic> processIncomingDirectory() {
+    	List<Comic> comicsAdded = new ArrayList<Comic>();
+    	
+    	String currentDir = new File(".").getAbsolutePath();
+    	log.info(currentDir);
+    	
+    	return comicsAdded;
     }
 }

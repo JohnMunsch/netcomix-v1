@@ -216,20 +216,37 @@ function loadAndRead(hash, newPage) {
 // through the browser history or when we click on a saved link or one sent to
 // us.
 function uiMode(mode) {
-  if (("read" === mode) && ($("#browse").is(":visible"))) {
-    $("#browse").hide();
-    $("#page").show();
-  } else if (("browse" === mode) && ($("#page").is(":visible"))) {
-    $("#page").hide();
-    $("#browse").show();
+  // Hide all the interfaces.
+  $("div#browse").hide();
+  $("div#page").hide();
+  $("div#admin").hide();
+
+  // Now show only the selected one.
+  if ("read" === mode) {
+    $("div#page").show();
+  } else if ("browse" === mode) {
+    $("div#browse").show();
+  } else if ("admin" === mode) {
+    $("div#admin").show();
   }
 }
 
 // Helpers for binding controls to commands.
 function bindMenu() {
-  $("#home").click(function () {
-    // History setup.
-    $.bbq.pushState({}, 2);  
+  $("span#home").click(function () {
+    $.bbq.pushState({}, 2);    
+  });
+  
+  $("span#admin").click(function () {
+    $.bbq.pushState({}, 2);
+  });
+}
+
+function bindAdmin() {
+  $("#processIncoming").click(function() {
+    netcomixServer.processIncomingDirectory();
+    
+    return false;
   });
 }
 
@@ -271,6 +288,7 @@ function setupPageTurning() {
 
 $(document).ready(function () {
   bindMenu();
+  bindAdmin();
   setupPageTurning();
 
   // Bind a callback that executes when document.location.hash changes.
@@ -287,6 +305,8 @@ $(document).ready(function () {
 
         uiMode("read");
       });
+    } else if (state.admin) {
+      uiMode("admin");
     } else {
       browse();
     }
