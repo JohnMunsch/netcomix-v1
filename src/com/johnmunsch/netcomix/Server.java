@@ -405,9 +405,10 @@ public class Server {
     	File incomingDirectory = new File("/Users/John/Documents/netcomix/incoming/");
     	
 		try {
-			ComicProcessor processor = new ComicProcessor(comicsAdded);
+			ComicProcessor processor = new ComicProcessor(comicsAdded, 
+					new ComicProcessorObserver());
 			
-			processor.traverse(incomingDirectory);
+			processor.process(incomingDirectory);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
