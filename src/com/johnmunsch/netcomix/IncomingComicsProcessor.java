@@ -3,6 +3,7 @@ package com.johnmunsch.netcomix;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +38,7 @@ public class IncomingComicsProcessor extends FileTraversal {
     	this.incomingDirectory = incomingDirectory;
     	
     	tempDirectory = findOrCreateDirectory("/temp/");
+    	cleanupTempDirectory();
     	
     	traverse(incomingDirectory);
     }
@@ -58,8 +60,6 @@ public class IncomingComicsProcessor extends FileTraversal {
     
     @Override
 	public void onFile(File f) {
-		log.info(f.getAbsolutePath());
-		
 		String lowerPath = f.getPath().toLowerCase();
 
 		try {
@@ -67,12 +67,20 @@ public class IncomingComicsProcessor extends FileTraversal {
 				// Unzip the CBZ comic into the temporary directory.
 				List<String> pages = unzip(f);
 				
-				observer.foundCBZComic(f, pages);				
+				// Give the observer a chance to do whatever with the pages from
+				// the comic.
+				observer.foundComic(f, pages);
+				
+				cleanupTempDirectory();
 			} else if (lowerPath.endsWith(".cbr")) {
 				// Unrar the CBR comic into the temporary directory.
 				List<String> pages = unrar(f);
 
-				observer.foundCBRComic(f, pages);
+				// Give the observer a chance to do whatever with the pages from
+				// the comic.
+				observer.foundComic(f, pages);
+				
+				cleanupTempDirectory();
 			} else {
 				// Call a callback to signal that this particular file couldn't
 				// be recognize.
@@ -104,18 +112,32 @@ public class IncomingComicsProcessor extends FileTraversal {
     protected List<String> unrar(File f) throws IOException {
     	List<String> pages = new ArrayList<String>();
     	
-    	ProcessBuilder processBuilder = new ProcessBuilder(
+    	@SuppressWarnings("unused")
+		Process process = new ProcessBuilder(
     			"/Applications/unrar", "x", f.getAbsolutePath(), 
-    			tempDirectory.getAbsolutePath());
-    	Process process = processBuilder.start();
+    			tempDirectory.getAbsolutePath()).start();
     	
     	return pages;
     }
 
+    protected void cleanupTempDirectory() throws IOException {
+    	// Nuke everything under the temp directory.
+    	delete(tempDirectory);
+    }
+    
+    void delete(File f) throws IOException {
+    	if (f.isDirectory()) {
+    		for (File c : f.listFiles())
+    			delete(c);
+    	}
+    	
+    	if (f != tempDirectory && !f.delete()) {
+    		throw new FileNotFoundException("Failed to delete file: " + f);
+    	}
+    }
+	
     protected void saveEntryAsFile(ZipFile zipfile, ZipEntry entry) 
     		throws IOException {
-        System.out.println("Extracting: " + entry);
-
 		// If the filename refers to any parent directories (for example,
 		// test/hello.txt has the parent directory test) then this code
 		// will create it before we try to extract the file.
