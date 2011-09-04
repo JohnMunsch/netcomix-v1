@@ -3,6 +3,8 @@ package com.johnmunsch.netcomix;
 import java.util.List;
 
 public class Comic {
+	protected String originalFileName;
+
 	protected String title;
     protected int volume;
     protected int issue;
@@ -10,6 +12,11 @@ public class Comic {
     protected List<String> pages;
     protected List<String> thumbnails;
 
+    public Comic(String originalFileName, List<String> pages) {
+    	this.originalFileName = originalFileName;
+    	this.pages = pages;
+    }
+    
     public Comic(String title, int volume, int issue, String hash,
     		List<String> pages, List<String> thumbnails) {
 		super();

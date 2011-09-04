@@ -37,7 +37,9 @@
         <mkdir dir="${dist.dir}"/>
         <war destfile="${dist.dir}/netcomix.war" webxml="${war.dir}/WEB-INF/web.xml">
             <fileset dir="${war.dir}"/>
-            <lib dir="${lib.dir}"/>
+            <lib dir="${lib.dir}">
+            	<exclude name="servlet-api.jar"/>
+            </lib>
             <classes dir="${class.dir}"/>
         </war>
     </target>

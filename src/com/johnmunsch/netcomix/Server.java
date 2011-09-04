@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletContext;
+
+import org.directwebremoting.ServerContextFactory;
+
 public class Server {
     private String bafflingMysteriesPages[] = {
 	    "comics/Baffling Mysteries 006 (1952)/scan0000.jpg",
@@ -216,148 +220,7 @@ public class Server {
         "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/66_thumbnail.jpg", 
         "comics/Captain_Aero_Comics_001_66p_no_ifc_ibc/68_thumbnail.jpg"
     };
-    
-    private String wowComics1Pages[] = {
-        "comics/Wow Comics 01f (1940) (c2c)/01.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/02.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/03.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/04.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/05.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/06.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/07.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/08.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/09.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/10.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/11.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/12.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/13.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/14.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/15.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/16.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/17.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/18.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/19.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/20.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/21.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/22.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/23.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/24.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/25.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/26.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/27.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/28.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/29.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/30.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/31.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/32.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/33.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/34.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/35.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/36.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/37.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/38.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/39.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/40.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/41.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/42.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/43.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/44.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/45.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/46.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/47.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/48.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/49.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/50.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/51.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/52.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/53.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/54.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/55.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/56.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/57.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/58.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/59.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/60.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/61.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/62.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/63.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/64.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/65.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/66.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/67.jpg", 
-        "comics/Wow Comics 01f (1940) (c2c)/68.jpg"
-    };
 
-    private String wowComics02Pages[] = {
-        "comics/Wow Comics 02f (1941) (c2c)/01.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/02.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/03.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/04.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/05.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/06.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/07.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/08.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/09.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/10.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/11.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/12.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/13.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/14.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/15.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/16.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/17.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/18.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/19.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/20.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/21.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/22.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/23.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/24.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/25.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/26.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/27.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/28.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/29.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/30.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/31.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/32.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/33.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/34.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/35.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/36.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/37.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/38.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/39.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/40.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/41.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/42.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/43.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/44.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/45.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/46.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/47.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/48.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/49.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/50.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/51.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/52.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/53.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/54.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/55.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/56.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/57.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/58.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/59.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/60.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/61.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/62.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/63.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/64.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/65.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/66.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/67.jpg", 
-        "comics/Wow Comics 02f (1941) (c2c)/68.jpg"
-    };
     private Comic bafflingMysteries = 
     		new Comic("Baffling Mysteries", 1, 6, "comic1",
     				Arrays.asList(bafflingMysteriesPages),
@@ -402,11 +265,16 @@ public class Server {
     
     public List<Comic> processIncomingDirectory() {
     	List<Comic> comicsAdded = new ArrayList<Comic>();
-    	File incomingDirectory = new File("/Users/John/Documents/netcomix/incoming/");
+
+    	ServletContext servletContext = 
+    			ServerContextFactory.get().getServletConfig().getServletContext();
+    	
+    	File incomingDirectory = 
+    			IncomingComicsProcessor.findOrCreateDirectory("/incoming/");
     	
 		try {
-			ComicProcessor processor = new ComicProcessor(comicsAdded, 
-					new ComicProcessorObserver());
+			IncomingComicsProcessor processor = new IncomingComicsProcessor( 
+					new IncomingComicsObserver());
 			
 			processor.process(incomingDirectory);
 		} catch (Exception e) {

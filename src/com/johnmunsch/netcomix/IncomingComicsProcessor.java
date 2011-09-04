@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,44 +16,45 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-public class ComicProcessor extends FileTraversal {
-	public class PagesProcessor extends FileTraversal {
-		@Override
-		public void onFile(File f) {
-			
-		}
-	}
-	
-	List<Comic> comicsAdded = null;
+import javax.servlet.ServletContext;
+
+import org.directwebremoting.ServerContextFactory;
+
+public class IncomingComicsProcessor extends FileTraversal {
 	File incomingDirectory = null;
 	File tempDirectory = null;
-	ComicProcessorObserver observer = null;
+	IncomingComicsObserver observer = null;
 	
 	protected static final int BUFFER = 2048;
 	
-    Logger log = Logger.getLogger(ComicProcessor.class.getName());
+    Logger log = Logger.getLogger(IncomingComicsProcessor.class.getName());
 
-    public ComicProcessor(List<Comic> comicsAdded, 
-    		ComicProcessorObserver observer) {
-    	this.comicsAdded = comicsAdded;
+    public IncomingComicsProcessor(IncomingComicsObserver observer) {
     	this.observer = observer;
     }
 
     public void process(File incomingDirectory) throws IOException {
     	this.incomingDirectory = incomingDirectory;
     	
-		// Make sure the temporary directory exists and is empty.
-    	String path = incomingDirectory.getPath();
-    	path += "/temp";
-    	
-    	tempDirectory = new File(path);
-    	if (!tempDirectory.exists()) {
-    		log.info("Had to make the temporary directory.");
-    		tempDirectory.mkdir();
-    	}    	
+    	tempDirectory = findOrCreateDirectory("/temp/");
     	
     	traverse(incomingDirectory);
     }
+
+	public static File findOrCreateDirectory(String name) {
+		ServletContext servletContext = 
+    			ServerContextFactory.get().getServletConfig().getServletContext();
+    	String realPath = servletContext.getRealPath(name);
+    	
+		// Make sure the temporary directory exists and is empty.    	
+    	File directory = new File(realPath);
+    	
+    	if (!directory.exists()) {
+    		directory.mkdir();
+    	}
+    	
+    	return directory; 
+	}
     
     @Override
 	public void onFile(File f) {
@@ -62,46 +64,55 @@ public class ComicProcessor extends FileTraversal {
 
 		try {
 			if (lowerPath.endsWith(".cbz")) {
-				observer.foundCBZComic(f);
-				
 				// Unzip the CBZ comic into the temporary directory.
-				unzip(f);
-			} else if (lowerPath.endsWith(".cbr")) {
-				observer.foundCBRComic(f);
+				List<String> pages = unzip(f);
 				
+				observer.foundCBZComic(f, pages);				
+			} else if (lowerPath.endsWith(".cbr")) {
 				// Unrar the CBR comic into the temporary directory.
-				unrar(f);
+				List<String> pages = unrar(f);
+
+				observer.foundCBRComic(f, pages);
 			} else {
 				// Call a callback to signal that this particular file couldn't
 				// be recognize.
 				observer.unrecognizedFile(f);
 			}
-		} catch (ZipException e) {
-			log.log(Level.WARNING, e.toString());
-		} catch (IOException e) {
-			log.log(Level.WARNING, e.toString());
-		}
-		
-		// TODO: Now we actually need to run a file traversal on the temporary
-		// directory.
-		
+		} catch (Exception e) {
+			log.log(Level.WARNING, e.toString(), e);
+			observer.errorProcessing(f);
+		}		
 	}
 
-    void unzip(File f) throws ZipException, IOException {
+    public List<String> unzip(File f) throws ZipException, IOException {
 		ZipFile zipfile = new ZipFile(f);
 		Enumeration<? extends ZipEntry> e = zipfile.entries();
-		File temp;
-
+		List<String> pages = new ArrayList<String>();
+		
 		while (e.hasMoreElements()) {
 			ZipEntry entry = (ZipEntry) e.nextElement();
+			pages.add(entry.getName());
 
 			if (!entry.isDirectory()) {
 			    saveEntryAsFile(zipfile, entry);
 			}
 		}
+		
+		return pages;
     }
 
-    public void saveEntryAsFile(ZipFile zipfile, ZipEntry entry) 
+    protected List<String> unrar(File f) throws IOException {
+    	List<String> pages = new ArrayList<String>();
+    	
+    	ProcessBuilder processBuilder = new ProcessBuilder(
+    			"/Applications/unrar", "x", f.getAbsolutePath(), 
+    			tempDirectory.getAbsolutePath());
+    	Process process = processBuilder.start();
+    	
+    	return pages;
+    }
+
+    protected void saveEntryAsFile(ZipFile zipfile, ZipEntry entry) 
     		throws IOException {
         System.out.println("Extracting: " + entry);
 
@@ -131,17 +142,13 @@ public class ComicProcessor extends FileTraversal {
 		destination.close();
 		source.close();
 	}
-    
-    void unrar(File f) {
-    	
-    }
-
-	public static String baseName(String filename) {
+        
+	protected static String baseName(String filename) {
 	    int i = filename.lastIndexOf('.');
 	    return (i > -1) ? filename.substring(0, i) : filename;
     }
 	
-	public static String extension(String filename) {
+	protected static String extension(String filename) {
 		int i = filename.lastIndexOf('.');
 		return (i > -1) ? filename.substring(i) : "";
 	}
