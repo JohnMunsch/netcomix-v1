@@ -7,5 +7,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/dwr.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
