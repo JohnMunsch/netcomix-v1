@@ -38,3 +38,5 @@ war/build/buildinfo.properties
 war/build/config/buildinfo.properties
 
 incoming/
+
+.classpath
