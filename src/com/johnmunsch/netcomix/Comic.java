@@ -3,6 +3,7 @@ package com.johnmunsch.netcomix;
 import java.util.List;
 
 public class Comic {
+	protected long id;
 	protected String originalFileName;
 
 	protected String title;
