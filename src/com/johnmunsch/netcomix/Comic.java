@@ -9,25 +9,35 @@ public class Comic {
 	protected String title;
     protected int volume;
     protected int issue;
-    protected String hash;
     protected List<String> pages;
     protected List<String> thumbnails;
 
-    public Comic(String originalFileName, List<String> pages) {
+    protected String hash;
+
+    public Comic(String originalFileName, List<String> pages, 
+    		List<String> thumbnails, String hash) {
     	this.originalFileName = originalFileName;
+    	
     	this.pages = pages;
+    	this.thumbnails = thumbnails;
+    	
+    	this.hash = hash;
     }
     
-    public Comic(String title, int volume, int issue, String hash,
-    		List<String> pages, List<String> thumbnails) {
+    public Comic(String originalFileName, String title, int volume, int issue, 
+    		List<String> pages, List<String> thumbnails, String hash) {
 		super();
 
+		this.originalFileName = originalFileName;
+		
 		this.title = title;
 		this.volume = volume;
 		this.issue = issue;
-		this.hash = hash;
+		
 		this.pages = pages;
 		this.thumbnails = thumbnails;
+		
+		this.hash = hash;
 	}
 
 	public String getTitle() {
@@ -42,10 +52,6 @@ public class Comic {
 		return issue;
 	}
 
-	public String getHash() {
-		return hash;
-	}
-
 	public List<String> getPages() {
 		return pages;
 	}
@@ -53,11 +59,19 @@ public class Comic {
 	public List<String> getThumbnails() {
 		return thumbnails;
 	}
+
+	public String getHash() {
+		return hash;
+	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Comic [title=");
+		builder.append("Comic [id=");
+		builder.append(id);
+		builder.append(", originalFileName=");
+		builder.append(originalFileName);
+		builder.append(", title=");
 		builder.append(title);
 		builder.append(", volume=");
 		builder.append(volume);
@@ -67,6 +81,8 @@ public class Comic {
 		builder.append(pages);
 		builder.append(", thumbnails=");
 		builder.append(thumbnails);
+		builder.append(", hash=");
+		builder.append(hash);
 		builder.append("]");
 		return builder.toString();
 	}

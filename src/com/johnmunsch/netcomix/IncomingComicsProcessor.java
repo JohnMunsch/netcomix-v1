@@ -69,7 +69,7 @@ public class IncomingComicsProcessor extends FileTraversal {
 				
 				// Give the observer a chance to do whatever with the pages from
 				// the comic.
-				observer.foundComic(f, pages);
+				observer.foundComic(f, pages, "");
 				
 				cleanupTempDirectory();
 			} else if (lowerPath.endsWith(".cbr")) {
@@ -78,7 +78,7 @@ public class IncomingComicsProcessor extends FileTraversal {
 
 				// Give the observer a chance to do whatever with the pages from
 				// the comic.
-				observer.foundComic(f, pages);
+				observer.foundComic(f, pages, "");
 				
 				cleanupTempDirectory();
 			} else {

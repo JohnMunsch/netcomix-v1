@@ -222,13 +222,17 @@ public class Server {
     };
 
     private Comic bafflingMysteries = 
-    		new Comic("Baffling Mysteries", 1, 6, "comic1",
+    		new Comic("Baffling Mysteries 006 (1952).cbz", 
+    				"Baffling Mysteries", 1, 6,
     				Arrays.asList(bafflingMysteriesPages),
-    				Arrays.asList(bafflingMysteriesThumbnails));
+    				Arrays.asList(bafflingMysteriesThumbnails), "comic1");
+    
     private Comic captainAeroComics = 
-    		new Comic("Captain Aero Comics", 1, 1, "comic2",
+    		new Comic("Captain_Aero_Comics_001_66p_no_ifc_ibc.cbz",
+    				"Captain Aero Comics", 1, 1,
     				Arrays.asList(captainAeroComicsPages),
-    				Arrays.asList(captainAeroComicsThumbnails));
+    				Arrays.asList(captainAeroComicsThumbnails), "comic2");
+    
     List<Comic> comics = new ArrayList<Comic>();
     Logger log = Logger.getLogger(Server.class.getName());
 
