@@ -10,6 +10,7 @@
     <property name="class.dir" location="build/classes"/>
     <property name="javadocs.dir" location="docs/apidoc"/>
 	<property name="dist.dir" location="dist"/>
+	<property name="install.dir" location="/Users/John/opt/apache-tomcat-7.0.16/webapps"/>
     
     <target name="init" description="Initialize the build: create directories, call tstamp and other common actions.">
         <!-- Create the time stamp -->
@@ -45,7 +46,7 @@
     </target>
 
 	<target name="install" depends="dist" description="Build the distributables and install them on the local web server.">
-		<copy file="${dist.dir}/netcomix.war" todir="/Users/John/opt/apache-tomcat-7.0.16/webapps"/>
+		<copy file="${dist.dir}/netcomix.war" todir="${install.dir}"/>
 	</target>
 
 	<target name="all" depends="dist" description="Build and test everything; create a distribution."/>
