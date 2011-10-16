@@ -270,8 +270,8 @@ public class Server {
     public List<Comic> processIncomingDirectory() {
     	List<Comic> comicsAdded = new ArrayList<Comic>();
 
-    	ServletContext servletContext = 
-    			ServerContextFactory.get().getServletConfig().getServletContext();
+//    	ServletContext servletContext = 
+//    			ServerContextFactory.get().getServletConfig().getServletContext();
     	
     	File incomingDirectory = 
     			IncomingComicsProcessor.findOrCreateDirectory("/incoming/");
